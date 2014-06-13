@@ -88,7 +88,7 @@ Example sending javascript/node.js mixed object.
 ```js
 service.send('myservice', 'push', {hello: 'world', x: 101, fab: true, image: new Buffer('binary image data')});
 ```
-Set message protocol options:
+Set message protocol options `'amp'`, `'ldjson'`:
 ```js
 {
 	protocol: 'amp'		// (default), or: 'ldjson' for Line Deineated JSON.
