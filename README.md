@@ -97,7 +97,7 @@ Set message protocol options `'amp'`, `'ldjson'`:
 
 ## Performance
 
-hypermq uses a persistent HTTP connection between the `'bind'` and `'connect'` peers, as a result once the connection is made `{secure: false}`, hypermq shows comparable performance to axon.
+hypermq uses a persistent HTTP connection between the `bind` and `connect` peers, as a result once the connection is made `{secure: false}`, hypermq shows comparable performance to axon.
 
 
 ## License
