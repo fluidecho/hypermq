@@ -77,6 +77,24 @@ myservice.on('message', function(msg){
 });
 ```
 
+## Message Protocol
+
+hypermq has two message protocols for you to choose from; [AMP](https://github.com/visionmedia/node-amp) protocol, with [node-amp-message](https://github.com/visionmedia/node-amp-message), the second protocol available is [Line Deineated JSON](http://en.wikipedia.org/wiki/Line_Delimited_JSON).  
+
+hypermq uses `AMP` by default. `AMP` allows you to apply any message codec, such as: json, msgpack, or to use javascript/node.js objects: buffer (binary), strings.  
+
+Example sending javascript/node.js mixed object.
+
+```js
+service.send('myservice', 'push', {hello: 'world', x: 101, fab: true, image: new Buffer('binary image data')});
+```
+Set message protocol options:
+```js
+{
+	protocol: 'amp'		// (default), or: 'ldjson' for Line Deineated JSON.
+}
+```
+
 ## Performance
 
 hypermq uses a persistent HTTP connection between the 'bind' and 'connect' peers, as a result once the connection is made `{secure: false}`, hypermq shows comparable performance to axon.
