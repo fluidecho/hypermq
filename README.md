@@ -133,7 +133,7 @@ myService.on('message', function(msg){
 
 setInterval(function(){
   myService.send('hello chit');
-}, 100);
+}, 1000);
 ```
 
 ## Message Protocol
@@ -145,7 +145,7 @@ hypermq uses AMP by default as it is fastest and most flexible. AMP allows you t
 Example sending javascript/node.js mixed object with the AMP protocol.
 
 ```js
-service.send('myservice', 'push', {hello: 'world', x: 101, fab: true, image: new Buffer('binary image data')});
+myService.send( {hello: 'world', x: 101, fab: true, image: new Buffer('binary image data')} );
 ```
 Set message protocol options `amp`, `ldjson`:
 ```js
