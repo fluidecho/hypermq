@@ -44,11 +44,12 @@ npm install hypermq
 var hypermq = require('hypermq');
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: true,
-	key: __dirname + '/key.pem',
-	cert: __dirname + '/cert.pem'
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: true,
+  key: __dirname + '/key.pem',
+  cert: __dirname + '/cert.pem',
+  apikey: 'za91j2bk72f483ap62x' 
 };
 var service = hypermq.bind(options);
 
@@ -56,7 +57,7 @@ var myService = new service('myService', 'push');
 console.log('myService:push server started');
 
 setInterval(function(){
-	myService.send('hello');
+  myService.send('hello');
 }, 100);
 ```
 Receiver of `push` messages:
@@ -65,10 +66,11 @@ Receiver of `push` messages:
 var hypermq = require('hypermq');
 
 var options = { 
-	hostname: '127.0.0.1', 
-	port: 3443, 
-	secure: true, 
-	rejectUnauthorized: false 
+  hostname: '127.0.0.1', 
+  port: 3443, 
+  secure: true, 
+  rejectUnauthorized: false,
+  apikey: 'za91j2bk72f483ap62x' 
 };
 var service = hypermq.connect(options);
 
@@ -87,11 +89,12 @@ myService.on('message', function(msg){
 var hypermq = require('hypermq');
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: true,
-	key: __dirname + '/key.pem',
-	cert: __dirname + '/cert.pem'
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: true,
+  key: __dirname + '/key.pem',
+  cert: __dirname + '/cert.pem',
+  apikey: 'za91j2bk72f483ap62x' 
 };
 var service = hypermq.bind(options);
 
@@ -103,7 +106,7 @@ myService.on('message', function(msg){
 });
 
 setInterval(function(){
-	myService.send('hello chat');
+  myService.send('hello chat');
 }, 100);
 ```
 
@@ -114,10 +117,11 @@ setInterval(function(){
 var hypermq = require('hypermq');
 
 var options = { 
-	hostname: '127.0.0.1', 
-	port: 3443, 
-	secure: true, 
-	rejectUnauthorized: false 
+  hostname: '127.0.0.1', 
+  port: 3443, 
+  secure: true, 
+  rejectUnauthorized: false,
+  apikey: 'za91j2bk72f483ap62x' 
 };
 var service = hypermq.connect(options);
 
@@ -128,7 +132,7 @@ myService.on('message', function(msg){
 });
 
 setInterval(function(){
-	myService.send('hello chit');
+  myService.send('hello chit');
 }, 100);
 ```
 
@@ -146,7 +150,7 @@ service.send('myservice', 'push', {hello: 'world', x: 101, fab: true, image: new
 Set message protocol options `amp`, `ldjson`:
 ```js
 {
-	protocol: 'amp'		// (default), or: 'ldjson' for Line Deineated JSON.
+  protocol: 'amp'   // (default), or: 'ldjson' for Line Deineated JSON.
 }
 ```
 
