@@ -44,18 +44,20 @@ npm install hypermq
 var hypermq = require('hypermq');
 
 var options = {
-  hostname: '127.0.0.1',
-  port: 3443,
-  secure: true,
-  apikey: '2j9G76aN5i63Y7',
-  key: __dirname + '/keys/agent2-key.pem',
-  cert: __dirname + '/keys/agent2-cert.pem'
+	hostname: '127.0.0.1',
+	port: 3443,
+	secure: true,
+	key: __dirname + '/key.pem',
+	cert: __dirname + '/cert.pem'
 };
 var service = hypermq.bind(options);
 
+var myService = new service('myService', 'push');
+console.log('myService:push server started');
+
 setInterval(function(){
-  service.send('myservice', 'push', 'hello');
-}, 150);
+	myService.send('hello');
+}, 100);
 ```
 Receiver of `push` messages:
 
@@ -63,18 +65,71 @@ Receiver of `push` messages:
 var hypermq = require('hypermq');
 
 var options = { 
-  service: 'myservice', 
-  pattern: 'pull', 
-  hostname: '127.0.0.1', 
-  port: 3443, 
-  secure: true, 
-  rejectUnauthorized: false 
+	hostname: '127.0.0.1', 
+	port: 3443, 
+	secure: true, 
+	rejectUnauthorized: false 
 };
-var myservice = hypermq.connect(options);   // GET https://127.0.0.1:3443/myservice/pull/
+var service = hypermq.connect(options);
 
-myservice.on('message', function(msg){
+var myService = new service('myService', 'pull');
+
+myService.on('message', function(msg){
   console.log(msg.toString());
 });
+```
+
+## Chit / Chat Example
+
+`chit`s is di-directional, broadcast to all `chat` peers and receive messages back:
+
+```js
+var hypermq = require('hypermq');
+
+var options = {
+	hostname: '127.0.0.1',
+	port: 3443,
+	secure: true,
+	key: __dirname + '/key.pem',
+	cert: __dirname + '/cert.pem'
+};
+var service = hypermq.bind(options);
+
+var myService = new service('myService', 'chit');
+console.log('myService:chit server started');
+
+myService.on('message', function(msg){
+  console.log(msg.toString());
+});
+
+setInterval(function(){
+	myService.send('hello chat');
+}, 100);
+```
+
+`chat`s is bi-directional, receive and send messages to `chit`:  
+(`chat` cannot broadcast messages to other `chat`s)
+
+```js
+var hypermq = require('hypermq');
+
+var options = { 
+	hostname: '127.0.0.1', 
+	port: 3443, 
+	secure: true, 
+	rejectUnauthorized: false 
+};
+var service = hypermq.connect(options);
+
+var myService = new service('myService', 'chat');
+
+myService.on('message', function(msg){
+  console.log(msg.toString());
+});
+
+setInterval(function(){
+	myService.send('hello chit');
+}, 100);
 ```
 
 ## Message Protocol
