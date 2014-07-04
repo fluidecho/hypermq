@@ -21,6 +21,7 @@
     "zmq",
     "0mq",
     "zeromq",
-    "axon"
+    "axon",
+    "amp"
   ]
 }
