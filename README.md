@@ -7,8 +7,10 @@ Unlike [axon](https://www.npmjs.org/package/axon), hypermq uses HTTP for transpo
   - encryption (SSL/TLS).
   - authentication (Basic).
   - firewall friendliness (single port).  
-  
-If you do not require any of these three features then I recommend you use [axon](https://www.npmjs.org/package/axon).  
+
+If you do not require any of these three features then [axon](https://www.npmjs.org/package/axon) is recommend.  
+
+This is __not__ a 'web browser' solution, to do that you could add socket.io on top of hypermq.  
 
 ## Installation
 
@@ -20,14 +22,12 @@ npm install hypermq
 
 ## Events
 
-  - `close` when server or connection is closed.
+  - `closed` when peer closes.
   - `error` (err) when an un-handled socket error occurs.
   - `reconnect attempt` when a reconnection attempt is made.
-  - `connect` when connected to the peer, or a peer connection is accepted.
-  - `disconnect` when an accepted peer disconnects.
-  - `bind` when the server is bound.
-  - `drop` (msg) when a message is dropped due to the HWM.
-  - `flush` (msgs) queued when messages are flushed on connection.
+  - `connected` (any url queries sent as object) when connected to the peer, or a peer connection is accepted.
+  - `queued` (msg) when a message is enqueued, can use to save unsent messages.
+  - `flushed` (total messages) queued when messages are flushed on connection.
   - `message` (msg) the message received by peer.
 
 ## Patterns
@@ -156,8 +156,11 @@ Set message protocol options `amp`, `ldjson`:
 
 ## Performance
 
-hypermq uses a persistent HTTP connection between the `bind` and `connect` peers, as a result once the connection is made `{secure: false}`, hypermq shows comparable performance to axon.
+You can benchmark hypermq.
 
+```
+make bench
+```
 
 ## License
 
