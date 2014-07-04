@@ -36,6 +36,14 @@ npm install hypermq
   - pub / sub
   - chit / chat
   
+## Examples
+
+see `examples` folder. To print debugging info use the _--preview_ argument when running the app, for example:
+
+```
+node examples/pushpull/push.js --preview
+```
+
 ## Push / Pull Example
 
 `push`s distribute messages round-robin:
