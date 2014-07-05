@@ -91,7 +91,7 @@ myService.on('message', function(msg){
 
 ## Chit / Chat Example
 
-`chit`s is bi-directional, broadcast to all `chat` peers and receive messages back:
+`chit`s is bi-directional, broadcast to all `chat` peers and can receive messages back:
 
 ```js
 var hypermq = require('hypermq');
@@ -118,8 +118,7 @@ setInterval(function(){
 }, 100);
 ```
 
-`chat`s is bi-directional, receive and send messages to `chit`:  
-(`chat` cannot broadcast messages to other `chat`s)
+`chat`s is bi-directional, can receive and send messages to `chit`:
 
 ```js
 var hypermq = require('hypermq');
@@ -148,7 +147,7 @@ setInterval(function(){
 
 hypermq has two message protocols for you to choose from; [AMP](https://github.com/visionmedia/node-amp) protocol, with [node-amp-message](https://github.com/visionmedia/node-amp-message), the second protocol available is [Line Deineated JSON](http://en.wikipedia.org/wiki/Line_Delimited_JSON).  
 
-hypermq uses AMP by default as it is fastest and most flexible. AMP allows you to apply any message codec, such as: json, msgpack, or to use javascript/node.js objects: buffer (binary), strings. Line Deineated JSON is useful for `peer`s written in different languages. Both the `bind` and `connect` peers must use the same protocol.    
+hypermq uses AMP by default as it is fastest and most flexible. AMP allows you to apply any message codec, such as: json, msgpack, or to use javascript/node.js objects: buffer (binary), strings. Line Deineated JSON is useful for connecting `peer`s written in different languages. Both the `bind` and `connect` peers must use the same protocol.    
 
 Example sending javascript/node.js mixed object with the AMP protocol.
 
@@ -164,7 +163,7 @@ Set message protocol options `amp`, `ldjson`:
 
 ## Performance
 
-You can benchmark hypermq.
+hypermq is currently a little slower then axon, however am working to make comparable. You can benchmark hypermq.
 
 ```
 make bench
