@@ -26,6 +26,7 @@ var myService = new service('myService', 'pub');
 console.log('pub bound');
 
 myService.on('closed', function(msg){
+	// connect peer has closed, so can exit this program.
 	process.exit();
 });
 

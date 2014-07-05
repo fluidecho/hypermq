@@ -38,7 +38,7 @@ npm install hypermq
   
 ## Examples
 
-see `examples` folder. To print debugging info use the _--preview_ argument when running the app, for example:
+See `examples` folder. To print debugging info use the _--preview_ argument when running the app, for example:
 
 ```
 node examples/pushpull/push.js --preview
@@ -91,7 +91,7 @@ myService.on('message', function(msg){
 
 ## Chit / Chat Example
 
-`chit`s is di-directional, broadcast to all `chat` peers and receive messages back:
+`chit`s is bi-directional, broadcast to all `chat` peers and receive messages back:
 
 ```js
 var hypermq = require('hypermq');
