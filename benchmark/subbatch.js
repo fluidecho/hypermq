@@ -79,7 +79,7 @@ function done(){
 	console.log('------------------------------');
   console.log('   events: ' + humanize(eventsX) );
   console.log('       id: ' + humanize(msgBatchesID));  
-  console.log('     mean: ' + humanize(Math.round( eventsX / (ms / 1000) )) + ' ops/s.');
+  console.log(' *** mean: ' + humanize(Math.round( eventsX / (ms / 1000) )) + ' ops/s.');
   console.log('------------------------------');
   
   process.exit();
