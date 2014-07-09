@@ -1,8 +1,9 @@
+var util = require('util');
 
 var hypermq = require('..')
   , program = require('commander')
   , humanize = require('humanize-number');
-
+  
 program
   .option('-s, --size <n>', 'message size in bytes [200]', parseInt)
   .option('-d, --duration <n>', 'duration of test [5000]', parseInt)
@@ -26,9 +27,13 @@ var bytes = program.size || 200;
 var prev = start = Date.now();
 var results = [];
 
-console.log();
+var eventsX = 0;
+var msgBatchesID = 0;
+
 
 myService.on('message', function(msg){
+	//console.log('msg> ' + util.inspect(msg[0], true, 99, true));
+
   if (n++ % ops == 0) {
     var ms = Date.now() - prev;
     var sec = ms / 1000;
@@ -37,6 +42,9 @@ myService.on('message', function(msg){
     process.stdout.write('\r  [' + persec + ' ops/s] [' + n + ']');
     prev = Date.now();
   }
+  
+  eventsX += msg[0].events.length;
+  msgBatchesID = msg[0].id;
 });
 
 function sum(arr) {
@@ -63,13 +71,17 @@ function done(){
   var avg = n / (ms / 1000);
   console.log('\n');
   console.log('      min: %s ops/s', humanize(min(results)));
-  console.log('------------------------------');
-  console.log(' *** mean: %s ops/s', humanize(avg | 0));
-  console.log('------------------------------');  
+  console.log('     mean: %s ops/s', humanize(avg | 0));
   console.log('   median: %s ops/s', humanize(median(results)));
   console.log('    total: %s ops in %ds', humanize(n), ms / 1000);
   console.log('  through: %d mb/s', ((avg * bytes) / 1024 / 1024).toFixed(2));
   console.log();
+	console.log('------------------------------');
+  console.log('   events: ' + humanize(eventsX) );
+  console.log('       id: ' + humanize(msgBatchesID));  
+  console.log('     mean: ' + humanize(Math.round( eventsX / (ms / 1000) )) + ' ops/s.');
+  console.log('------------------------------');
+  
   process.exit();
 }
 

@@ -3,13 +3,12 @@ var hypermq = require('..')
   , program = require('commander');
 
 program
-  .option('-T, --type <name>', 'socket type [pub]', 'pub')
-  .option('-t, --per-tick <n>', 'messages per tick [1000]', parseInt)
-  .option('-s, --size <n>', 'message size in bytes [1024]', parseInt)
+  .option('-t, --per-tick <n>', 'messages per tick [10]', parseInt)
+  .option('-s, --size <n>', 'message size in bytes [200]', parseInt)
   .option('-d, --duration <n>', 'duration of test [5000]', parseInt)
   .parse(process.argv)
 
-
+var perTick = program.perTick || 1000;
 
 var options = {
 	hostname: '127.0.0.1',
@@ -30,8 +29,7 @@ myService.on('closed', function(msg){
 	process.exit();
 });
 
-var perTick = program.perTick || 1000;
-var buf = new Buffer(Array(program.size || 1024).join('a'));
+var buf = new Buffer(Array(program.size || 200).join('a'));
 console.log('sending %d per tick', perTick);
 console.log('sending %d byte messages', buf.length);
 

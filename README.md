@@ -145,9 +145,9 @@ setInterval(function(){
 
 ## Message Protocol
 
-hypermq has two message protocols for you to choose from; [AMP](https://github.com/visionmedia/node-amp) protocol, with [node-amp-message](https://github.com/visionmedia/node-amp-message), the second protocol available is [Line Deineated JSON](http://en.wikipedia.org/wiki/Line_Delimited_JSON).  
+hypermq has two message protocols for you to choose from; [AMP](https://github.com/visionmedia/node-amp) protocol, with [node-amp-message](https://github.com/visionmedia/node-amp-message), the second protocol available is [Line Delimited JSON](http://en.wikipedia.org/wiki/Line_Delimited_JSON).  
 
-hypermq uses AMP by default as it is fastest and most flexible. AMP allows you to apply any message codec, such as: json, msgpack, or to use javascript/node.js objects: buffer (binary), strings. Line Deineated JSON is useful for connecting `peer`s written in different languages. Both the `bind` and `connect` peers must use the same protocol.    
+hypermq uses AMP by default as it is fastest and most flexible. AMP allows you to apply any message codec, such as: json, msgpack, or to use javascript/node.js objects: buffer (binary), strings. Line Delimited JSON is useful for connecting `peer`s written in different languages. Both the `bind` and `connect` peers must use the same protocol.    
 
 Example sending javascript/node.js mixed object with the AMP protocol.
 
@@ -163,10 +163,34 @@ Set message protocol options `amp`, `ldjson`:
 
 ## Performance
 
-hypermq is currently a little slower then axon, however am working to make comparable. You can benchmark hypermq.
+You can benchmark hypermq. With `secure` set to true will be slower as messages are encrypted.  
 
+Benchmark without `batching`:
 ```
 make bench
+```
+Benchmark with `batching`:
+```
+make benchbatch
+```
+### Results
+
+Sending a `200` byte sized `batched` `unsecure` message, on my laptop (dual-core i7), I get around __183,546__ messages per second:
+
+```
+  [2208 ops/s] [10001]
+
+      min: 2,208 ops/s
+     mean: 2,211 ops/s
+   median: 2,230 ops/s
+    total: 11,057 ops in 5s
+  through: 0.42 mb/s
+
+------------------------------
+   events: 917,731
+       id: 23,388
+     mean: 183,546 ops/s.
+------------------------------
 ```
 
 ## License
