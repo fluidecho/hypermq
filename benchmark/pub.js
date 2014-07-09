@@ -11,13 +11,13 @@ program
 var perTick = program.perTick || 1000;
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: false,
-	key: __dirname + '/keys/test-key.pem',
-	cert: __dirname + '/keys/test-cert.pem',
-	apikey: 'za91j2bk72f483ap62x',
-	protocol: 'amp'	
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: false,
+  key: __dirname + '/keys/test-key.pem',
+  cert: __dirname + '/keys/test-cert.pem',
+  apikey: 'za91j2bk72f483ap62x',
+  protocol: 'amp' 
 };
 var service = hypermq.bind(options);
 
@@ -25,8 +25,8 @@ var myService = new service('myService', 'pub');
 console.log('pub bound');
 
 myService.on('closed', function(msg){
-	// connect peer has closed, so can exit this program.
-	process.exit();
+  // connect peer has closed, so can exit this program.
+  process.exit();
 });
 
 var buf = new Buffer(Array(program.size || 200).join('a'));

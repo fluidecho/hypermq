@@ -1,5 +1,5 @@
 var hypermq = require('..') 
-	, program = require('commander');
+  , program = require('commander');
 
 program
   .option('-s, --size <n>', 'message size in bytes [200]', parseInt)
@@ -7,13 +7,13 @@ program
   .parse(process.argv)
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: false,
-	key: __dirname + '/keys/test-key.pem',
-	cert: __dirname + '/keys/test-cert.pem',
-	apikey: 'za91j2bk72f483ap62x',
-	protocol: 'amp'	
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: false,
+  key: __dirname + '/keys/test-key.pem',
+  cert: __dirname + '/keys/test-cert.pem',
+  apikey: 'za91j2bk72f483ap62x',
+  protocol: 'amp' 
 };
 var service = hypermq.bind(options);
 
@@ -21,8 +21,8 @@ var myService = new service('myService', 'pub');
 console.log('pub bound');
 
 myService.on('closed', function(msg){
-	// connect peer has closed, so can exit this program.
-	process.exit();
+  // connect peer has closed, so can exit this program.
+  process.exit();
 });
 
 
@@ -44,20 +44,20 @@ console.log('sending %d byte messages', data.length);
 
 // batching, nable-ish
 var bsize = 0;
-var BATCH_SIZE = 16450;	// bytes.
+var BATCH_SIZE = 16450; // bytes.
 
 function batch(data) {
 
-	msg.events.push(data.toString('base64'));		// convert buffer into base64.
+  msg.events.push(data.toString('base64'));   // convert buffer into base64.
 
-	bsize += data.length;
+  bsize += data.length;
 
-	if ( bsize >= BATCH_SIZE ) {
-		bsize = 0;	// reset.
-		myService.send(msg);
-		msg.events = [];		// reset.
-		msg.id++;
-	}
+  if ( bsize >= BATCH_SIZE ) {
+    bsize = 0;  // reset.
+    myService.send(msg);
+    msg.events = [];    // reset.
+    msg.id++;
+  }
 
 }
 
@@ -65,17 +65,17 @@ function batch(data) {
 function more() {
 
   if ( BATCHING === true ) {
-  	batch(data);
+    batch(data);
   } else {
-		// without batching
-		msg.events.push(data.toString('base64'));
-		
-		myService.send(msg);
-	 	msg.events = [];		// reset.
-		msg.id++;   
+    // without batching
+    msg.events.push(data.toString('base64'));
+    
+    myService.send(msg);
+    msg.events = [];    // reset.
+    msg.id++;   
   }
 
-	setImmediate(more);
+  setImmediate(more);
 
 }
 

@@ -9,12 +9,12 @@ program
   .parse(process.argv)
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: false,
-	apikey: 'za91j2bk72f483ap62x',	
-	rejectUnauthorized: false,		// false: if using self signed certificate.
-	protocol: 'amp'
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: false,
+  apikey: 'za91j2bk72f483ap62x',  
+  rejectUnauthorized: false,    // false: if using self signed certificate.
+  protocol: 'amp'
 };
 var service = hypermq.connect(options);
 

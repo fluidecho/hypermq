@@ -10,12 +10,12 @@ program
   .parse(process.argv)
 
 var options = {
-	hostname: '127.0.0.1',
-	port: 3443,
-	secure: false,
-	apikey: 'za91j2bk72f483ap62x',	
-	rejectUnauthorized: false,		// false: if using self signed certificate.
-	protocol: 'amp'
+  hostname: '127.0.0.1',
+  port: 3443,
+  secure: false,
+  apikey: 'za91j2bk72f483ap62x',  
+  rejectUnauthorized: false,    // false: if using self signed certificate.
+  protocol: 'amp'
 };
 var service = hypermq.connect(options);
 
@@ -32,7 +32,7 @@ var msgBatchesID = 0;
 
 
 myService.on('message', function(msg){
-	//console.log('msg> ' + util.inspect(msg[0], true, 99, true));
+  //console.log('msg> ' + util.inspect(msg[0], true, 99, true));
 
   if (n++ % ops == 0) {
     var ms = Date.now() - prev;
@@ -76,7 +76,7 @@ function done(){
   console.log('    total: %s ops in %ds', humanize(n), ms / 1000);
   console.log('  through: %d mb/s', ((avg * bytes) / 1024 / 1024).toFixed(2));
   console.log();
-	console.log('------------------------------');
+  console.log('------------------------------');
   console.log('   events: ' + humanize(eventsX) );
   console.log('       id: ' + humanize(msgBatchesID));  
   console.log(' *** mean: ' + humanize(Math.round( eventsX / (ms / 1000) )) + ' ops/s.');
