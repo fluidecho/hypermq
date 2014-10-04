@@ -1,5 +1,7 @@
 # HyperMQ [![Build Status](https://api.travis-ci.org/kurunt/hypermq.png)](https://travis-ci.org/kurunt/hypermq)
 
+## !!! DEPRECIATED !!! [SecureMQ](https://github.com/kurunt/securemq) has now replaced HyperMQ.
+
 Message-oriented HTTP service inspired by axon and zeromq.  
 
 Unlike [axon](https://www.npmjs.org/package/axon), hypermq uses HTTP for transport rather than plain TCP, this allows hypermq to have:
